@@ -3,9 +3,8 @@ import axiosWithAuth from '../utils/axiosWithAuth';
 
 export default function FriendForm(props) {
     
-  // Creating our state, and our handleChanges function
+  // Creating state and handleChanges function
   const [form, setForm] = React.useState({ name: '', age: '', email: '' });
-
   const handleChanges = event => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
@@ -16,6 +15,7 @@ export default function FriendForm(props) {
     // If editingFriend is true -> We do have someone we want to edit, 
     // so setForm() with all of our current values so we can update them.
     if (props.editingFriend) {
+
       setForm({
         name: props.editingFriend.name,
         age: props.editingFriend.age,
@@ -44,13 +44,12 @@ export default function FriendForm(props) {
 
     // If editingFriend is true -> We are editing a friend, so we want a PUT request
     if (props.editingFriend) {
-
       axiosWithAuth()
 
         .put(`/api/friends/${props.editingFriend.id}`, form)
 
         .then(response => {
-          console.log('EDIT', response);
+          console.log("EDIT", response);
           props.setFriends(response.data);
           setForm({ name: '', age: '', email: '' });
           props.setEditingFriend(null);
@@ -60,7 +59,6 @@ export default function FriendForm(props) {
     } else {
 
       axiosWithAuth()
-
         .post('/api/friends', form)
 
         .then(response => {
@@ -68,64 +66,48 @@ export default function FriendForm(props) {
           props.setFriends(response.data);
           setForm({ name: '', age: '', email: '' });
         })
-
         .catch(error => console.log(error.response));
     }
   };
 
   // Set's editingFriend to null to tell the code that we are no longer editing
-  const closeEdit = event => {
-    event.preventDefault();
+  const closeEdit = error => {
+    error.preventDefault();
     props.setEditingFriend(null);
   };
 
   return (
     <div>
-      <form onSubmit={submitHandler}>
+      <form onSubmit = {submitHandler}>
         <input
           required
           type = 'text'
           name = 'name'
+          placeholder = 'Enter Name'
           value = {form.name}
           onChange = {handleChanges}
         />
-
         <input
           required
           type = 'number'
           name = 'age'
+          placeholder = 'Enter Age'
           value = {form.age}
           onChange = {handleChanges}
         />
-
         <input
           required
           type = 'email'
           name = 'email'
+          placeholder = 'Enter E-Mail'
           value = {form.email}
           onChange = {handleChanges}
         />
-
         <button type = 'submit'>
-          {props.editingFriend ? 'Submit Edit' : 'Add Friend'}
+          {props.editingFriend ? 'Submit edit' : 'Add Friend'}
         </button>
-
-        <button onClick={closeEdit}>Cancel</button>
-
+        <button onClick = {closeEdit}>Cancel</button>
       </form>
     </div>
   );
 }
-
-// import React from 'react';
-
-// export default ({ name, age, email, id, deleteBud }) => (
-//   <>
-//     <div>
-//       <h4>Name: {name}</h4>
-//       <p>Contact: {email}</p>
-//       <p>Age: {age}</p>
-//       <button onClick={() => deleteBud(id)}>Delete</button>
-//     </div>
-//   </>
-// );

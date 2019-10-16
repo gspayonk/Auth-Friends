@@ -21,3 +21,33 @@
 .App-link {
   color: #09d3ac;
 }
+
+body {
+  background-color: #505050;
+  margin-top: 10%;
+}
+
+input {
+  margin-right: 1%;
+}
+
+.friendcard {
+  border: 1.5px solid black;
+  margin: 5% 30%;
+}
+
+div.friendcard > button {
+  margin-bottom: 3%;
+}
+
+p {
+  color: white;
+}
+
+.friendfetch {
+  margin-top: 1%;
+}
+
+h3 {
+  margin-top: 2%;
+}
