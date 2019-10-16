@@ -1,7 +1,7 @@
 {
     "version": 2,
     "name": "friends",
-    "builds": [{"src": "friend/package.json", "use": "@now/static-build", "config":{"distDir": "build"}}],
+    "builds": [{"src": "friend/package.json", "use": "@now/static-build", "config": {"distDir": "build"}}],
     "routes": [
         {"src": "/(.*)", "dest": "friend/$1"}
     ]
